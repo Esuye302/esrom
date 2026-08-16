@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
+import MobileMenu from "../MobileMenu/MobileMenu";
+import { useState } from "react";
+
+
 
 const Navbar = () => {
+const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   return (
+    <>
     <nav className="flex justify-between px-4 pt-4 fixed top-0 left-0 right-0 items-center z-50">
       <Link
         to="/"
@@ -9,14 +15,21 @@ const Navbar = () => {
       >
         ESROM
       </Link>
-      <button aria-label="Toggle menu" type="button" className="menu cursor-pointer bg-secondary rounded-md w-10 h-10 flex-center">
+      <button 
+      onClick={()=>setIsMobileMenuOpen(!isMobileMenuOpen)}
+      //this is used for screen readers
+        aria-label="Toggle menu"
+        aria-expanded = {isMobileMenuOpen}
+        type="button"
+        className="menu cursor-pointer bg-secondary rounded-md w-10 h-10 flex-center"
+      >
         <svg
           width="20"
           height="23"
           viewBox="0 0 20 23"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-        >
+          >
           <g clipPath="url(#clip0_0_1)">
             <path
               fillRule="evenodd"
@@ -48,7 +61,10 @@ const Navbar = () => {
           </defs>
         </svg>
       </button>
+
     </nav>
+      <MobileMenu isMobileMenuOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
+              </>
   );
 };
 
