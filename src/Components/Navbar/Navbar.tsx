@@ -16,7 +16,7 @@ const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
         ESROM
       </Link>
       <button 
-      onClick={()=>setIsMobileMenuOpen(!isMobileMenuOpen)}
+      onClick={()=>setIsMobileMenuOpen((prev) => !prev)}
       //this is used for screen readers
         aria-label="Toggle menu"
         aria-expanded = {isMobileMenuOpen}

@@ -4,7 +4,7 @@
     --color-primary:#FFFF23;
     --color-secondary:#BFBAAB;
     --color-menu-background:#DBDBC8;
-    
+
    
 }
 @layer base{
@@ -16,3 +16,23 @@
 @layer components{
     .flex-center {@apply flex justify-center items-center}
 }
+@keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .animate-scroll {
+    animation: scroll 25s linear infinite;
+    display: flex;
+  
+    width:max-content;
+  }
+  
+  /* Pause when user hovers over it */
+  .animate-scroll:hover {
+    animation-play-state: paused;
+  }
