@@ -1,10 +1,12 @@
+import Navbar from "./Components/Navbar/Navbar"
 import Hero from "./sections/Hero"
 
 const App = () => {
   return (
-    <main className="h-1000 ">
-    <Hero/>
-    </main>
+   <>
+   <Navbar />
+   <Hero />
+   </>
   )
 }
 

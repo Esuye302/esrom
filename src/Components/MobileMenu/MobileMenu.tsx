@@ -105,7 +105,7 @@ const MobileMenu = ({ isMobileMenuOpen, onClose }: MobileMenuProps) => {
   return (
     <div ref={menuRef} className="fixed top-21 right-2.5 left-2.5 z-40">
       {/* Menu card */}
-      <div className="rounded-[10px] border border-white/40 bg-secondary/70 p-3 backdrop-blur-md">
+      <div className="rounded-[10px] border border-white/40 bg-secondary/70 p-3 backdrop-blur-xs">
         <nav className="flex flex-col items-start gap-2">
           {menuItems.map((item) => (
             <a
