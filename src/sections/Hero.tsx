@@ -58,7 +58,7 @@ const Hero = () => {
       </div>
       <div className="absolute right-5 top-[34%] z-30">
         <div className="rounded-lg border border-white/50 bg-black/10 p-3 backdrop-blur-xs text-white">
-          <p className="text-4xl font-black leading-none text-primary">2+</p>
+          <p className="text-6xl font-black leading-none text-primary">2+</p>
 
           <p className="mt-1 text-xs font-medium leading-tight">
             Years of
