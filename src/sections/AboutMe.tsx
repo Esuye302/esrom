@@ -1,3 +1,10 @@
+import { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
 interface Service {
   number: string;
   title: string;
@@ -32,17 +39,40 @@ const services: Service[] = [
 ];
 
 const About = () => {
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.to(dotRef.current, {
+        top: "100%",
+        ease: "none",
+
+        scrollTrigger: {
+          trigger: aboutRef.current,
+          start: "top center",
+          end: "bottom center",
+          scrub: 1.5,
+        },
+      });
+    },
+    {
+      scope: aboutRef,
+    },
+  );
+
   return (
     <section id="about" className="relative bg-background px-4 py-16">
-      {/* Heading */}
+      {/* About heading */}
       <div className="mb-10">
-        <h2 className="flex-center text-4xl font-black leading-none">
+        <h2 className="text-4xl font-black leading-none">
           About Me (&)
           <br />
           My Journey
         </h2>
 
-        <p className="mt-6 text-sm leading-relaxed ">
+        <p className="mt-6 text-sm leading-relaxed">
           I’m not one of those developers who always knew this was what they
           wanted to do. I stumbled into it, got curious, and then got obsessed
           with understanding it.
@@ -61,27 +91,48 @@ const About = () => {
       </div>
 
       {/* What I Build */}
-      <div>
-        <h3 className="flex-center mb-8 text-3xl font-black">What I Build?</h3>
+      <div ref={aboutRef}>
+        <h3 className="mb-8 text-3xl font-black">What I Build?</h3>
 
         {/* Timeline */}
-        <div className="relative pl-8">
-          {/* Timeline background */}
-          <div className="absolute left-2 top-0 h-full w-px bg-black/30" />
+        <div ref={timelineRef} className="relative pl-8">
+          {/* Fixed timeline */}
+          <div className="border-2 absolute left-2 top-0 h-full w-px bg-black/30" />
 
-          {/* Timeline progress - GSAP will animate this later */}
-          <div className="absolute  left-2 top-0 h-0 w-px bg-primary" />
+          {/* Moving dot */}
+          <div
+            ref={dotRef}
+            className="
+              absolute
+              left-2
+              top-0
+              z-20
+              h-3
+              w-3
+              -translate-x-1/2
+              -translate-y-1/2
+              rounded-full
+              border-2
+              border-black
+              bg-primary
+            "
+          />
 
-          {/* Services */}
+          {/* Service cards */}
           <div className="flex flex-col gap-8">
             {services.map((service) => (
               <article
                 key={service.number}
-                className="relative rounded-xl border border-white/50 bg-white/20 p-5 backdrop-blur-sm"
+                className="
+                  relative
+                  rounded-xl
+                  border
+                  border-white/50
+                  bg-white/20
+                  p-5
+                  backdrop-blur-sm
+                "
               >
-                {/* Timeline dot */}
-                <span className="absolute -left-[2.05rem] top-8 h-3 w-3 rounded-full border-2 border-black bg-primary" />
-
                 <span className="text-5xl font-black text-primary">
                   {service.number}
                 </span>
