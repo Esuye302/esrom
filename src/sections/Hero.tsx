@@ -45,7 +45,6 @@ const Hero = () => {
       id="home"
       className="relative h-[190vw]  overflow-hidden bg-background "
     >
-     
       <h1
         className="
           pointer-events-none
@@ -87,12 +86,12 @@ const Hero = () => {
           className="
             rounded-lg
             border
-            border-white/50
             bg-black/10
             p-[3vw]
             font-medium
             text-white
             backdrop-blur-xs
+
           "
         >
           {strengths.map((strength) => (
@@ -111,7 +110,7 @@ const Hero = () => {
       </div>
 
       {/* Experience Card */}
-      <div className="absolute right-[5vw] top-[88vw] z-30">
+      <div className="absolute right-[5vw] top-[99vw] z-30">
         <div
           className="
             rounded-lg
@@ -173,10 +172,10 @@ const Hero = () => {
           {/* shadow */}
           <div className="logo ">
             <img src={logo} alt="Logo" className="h-[10vw] w-[20vw]" />
-            </div>
+          </div>
 
-            <p className="mt-[1vw] text-[3vw] font-medium leading-tight pr-3">
-           <span className="text-primary">20+</span>  Projects
+          <p className="mt-[1vw] text-[3vw] font-medium leading-tight pr-3">
+            <span className="text-primary">20+</span> Projects
           </p>
         </div>
       </div>

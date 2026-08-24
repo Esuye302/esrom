@@ -11,7 +11,7 @@ const Navbar = () => {
           to="/"
           className="logo bg-primary flex-center w-30 h-10 rounded-md font-bold text-2xl  cursor-pointer"
         >
-          ESROM
+          ESROM®
         </Link>
         <button
           onClick={() => setIsMobileMenuOpen((prev) => !prev)}

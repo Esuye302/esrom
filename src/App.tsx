@@ -1,16 +1,16 @@
-import Navbar from "./Components/Navbar/Navbar"
-import AboutMe from "./sections/AboutMe"
-import Hero from "./sections/Hero"
+import Navbar from "./Components/Navbar/Navbar";
+import AboutMe from "./sections/AboutMe";
+import Hero from "./sections/Hero";
 
 const App = () => {
   return (
-   <>
-   <Navbar />
+    <>
+      <Navbar />
 
-   <Hero />
+      <Hero />
       <AboutMe />
-   </>
-  )
-}
+    </>
+  );
+};
 
-export default App
+export default App;
