@@ -1,38 +1,39 @@
 @import "tailwindcss";
-@theme{
-    --color-background:#CBC5B5;
-    --color-primary:#FFFF23;
-    --color-secondary:#BFBAAB;
-    --color-menu-background:#DBDBC8;
-
-   
+@theme {
+  --color-background: #cbc5b5;
+  --color-primary: #ffff23;
+  --color-secondary: #bfbaab;
+  --color-menu-background: #dbdbc8;
+  --color-darkGradient: #131313;
 }
-@layer base{
-    body{
-        /* background-color:var(--color-background); */
-        margin:0;
-    }
+@layer base {
+  body {
+    /* background-color:var(--color-background); */
+    margin: 0;
+  }
 }
-@layer components{
-    .flex-center {@apply flex justify-center items-center}
+@layer components {
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
 }
 @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
+  0% {
+    transform: translateX(0);
   }
-  
-  .animate-scroll {
-    animation: scroll 25s linear infinite;
-    display: flex;
-  
-    width:max-content;
+  100% {
+    transform: translateX(-50%);
   }
-  
-  /* Pause when user hovers over it */
-  .animate-scroll:hover {
-    animation-play-state: paused;
-  }
+}
+
+.animate-scroll {
+  animation: scroll 25s linear infinite;
+  display: flex;
+
+  width: max-content;
+}
+
+/* Pause when user hovers over it */
+.animate-scroll:hover {
+  animation-play-state: paused;
+}

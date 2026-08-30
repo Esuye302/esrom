@@ -1,14 +1,19 @@
 import Navbar from "./Components/Navbar/Navbar";
 import AboutMe from "./sections/AboutMe";
 import Hero from "./sections/Hero";
+import Projects from "./sections/Projects";
+import Test from "./sections/Test";
 
 const App = () => {
   return (
     <>
       <Navbar />
-
-      <Hero />
-      <AboutMe />
+      <main>
+        <Hero />
+        <AboutMe />
+        <Projects />
+      </main>
+      {/* <Test/> */}
     </>
   );
 };

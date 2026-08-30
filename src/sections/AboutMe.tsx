@@ -41,20 +41,55 @@ const services: Service[] = [
 const About = () => {
   const aboutRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
-  const dotRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+
+  const cardRefs = useRef<HTMLDivElement[]>([]);
+  const circleRefs = useRef<HTMLDivElement[]>([]);
 
   useGSAP(
     () => {
-      gsap.to(dotRef.current, {
-        top: "100%",
+      const timeline = timelineRef.current;
+      const progress = progressRef.current;
+
+      if (!timeline || !progress) return;
+
+      const cards = cardRefs.current;
+      const circles = circleRefs.current;
+
+      // Start all circles hidden
+      gsap.set(circles, {
+        scale: 0,
+      });
+
+      // Main scroll animation
+      gsap.to(progress, {
+        height: "100%",
         ease: "none",
 
         scrollTrigger: {
-          trigger: aboutRef.current,
-          start: "top center",
-          end: "bottom center",
-          scrub: 1.5,
+          trigger: timeline,
+          start: "top 60%",
+          end: "bottom 60%",
+          scrub: 1.2,
         },
+      });
+
+      // Circle animations
+      circles.forEach((circle, index) => {
+        const card = cards[index];
+
+        if (!card) return;
+
+        gsap.to(circle, {
+          scale: 1,
+          ease: "power2.out",
+
+          scrollTrigger: {
+            trigger: card,
+            start: "top 60%",
+            toggleActions: "play reverse play reverse",
+          },
+        });
       });
     },
     {
@@ -63,10 +98,14 @@ const About = () => {
   );
 
   return (
-    <section id="about" className="relative bg-background px-4 py-16">
-      {/* About heading */}
-      <div className="mb-10">
-        <h2 className="text-4xl font-black leading-none">
+    <section
+      ref={aboutRef}
+      id="about"
+      className="relative w-full bg-background px-4 py-20  "
+    >
+      {/* ABOUT ME */}
+      <div className="mb-16 2 -mt-6">
+        <h2 className="text-center text-4xl font-black leading-none">
           About Me (&)
           <br />
           My Journey
@@ -90,55 +129,66 @@ const About = () => {
         </p>
       </div>
 
-      {/* What I Build */}
-      <div ref={aboutRef}>
-        <h3 className="mb-8 text-3xl font-black">What I Build?</h3>
+      {/* WHAT I BUILD */}
+      <div >
+        <h3 className="mb-10 text-3xl font-black text-center">What I Build?</h3>
 
-        {/* Timeline */}
-        <div ref={timelineRef} className="relative pl-8">
-          {/* Fixed timeline */}
-          <div className="border-2 absolute left-2 top-0 h-full w-px bg-black/30" />
+        {/* TIMELINE */}
+        <div ref={timelineRef} className=" relative pl-8">
+          {/* Gray background line */}
+          <div className="absolute left-2 top-0 h-full w-px bg-black/20" />
 
-          {/* Moving dot */}
+          {/* Yellow growing line */}
           <div
-            ref={dotRef}
-            className="
-              absolute
-              left-2
-              top-0
-              z-20
-              h-3
-              w-3
-              -translate-x-1/2
-              -translate-y-1/2
-              rounded-full
-              border-2
-              border-black
-              bg-primary
-            "
+            ref={progressRef}
+            className=" absolute left-2 top-0 h-0 w-px bg-primary "
           />
 
-          {/* Service cards */}
-          <div className="flex flex-col gap-8">
-            {services.map((service) => (
+          {/* CARDS */}
+          <div className="flex flex-col gap-10">
+            {services.map((service, index) => (
               <article
                 key={service.number}
-                className="
-                  relative
-                  rounded-xl
-                  border
-                  border-white/50
-                  bg-white/20
-                  p-5
-                  backdrop-blur-sm
-                "
+                ref={(element) => {
+                  if (element) {
+                    cardRefs.current[index] = element;
+                  }
+                }}
+                className="relative rounded-xl border border-white/50 bg-white/20 p-5 backdrop-blur-sm "
               >
+                {/* Milestone circle */}
+                <div
+                  ref={(element) => {
+                    if (element) {
+                      circleRefs.current[index] = element;
+                    }
+                  }}
+                  className="
+                    absolute
+                    left-[-2.05rem]
+                    top-8
+                    z-20
+                    h-3
+                    w-3
+                    
+                    -translate-x-1/2
+                    -translate-y-1/2
+                    rounded-full
+                    border
+                    border-black
+                    bg-primary
+                  "
+                />
+
+                {/* Number */}
                 <span className="text-5xl font-black text-primary">
                   {service.number}
                 </span>
 
+                {/* Title */}
                 <h4 className="mt-3 text-xl font-black">{service.title}</h4>
 
+                {/* Description */}
                 <p className="mt-2 text-sm leading-relaxed">
                   {service.description}
                 </p>
