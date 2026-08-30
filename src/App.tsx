@@ -4,6 +4,7 @@ import AboutMe from "./sections/AboutMe";
 import Contact from "./sections/Contact";
 import Hero from "./sections/Hero";
 import Projects from "./sections/Projects";
+import FAQSection from "./sections/Faq";
 import Test from "./sections/Test";
 
 const App = () => {
@@ -14,7 +15,8 @@ const App = () => {
         <Hero />
         <AboutMe />
         <Projects />
-        <Contact/>
+        <Contact />
+        <FAQSection />
       </main>
       {/* <Test/> */}
     </>
