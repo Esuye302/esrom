@@ -5,8 +5,14 @@
   --color-secondary: #bfbaab;
   --color-menu-background: #dbdbc8;
   --color-darkGradient: #131313;
+  --font-bungee: "Caacupe One", sans-serif
 }
+
 @layer base {
+html {
+  scroll-behavior: smooth;
+}
+
   body {
     /* background-color:var(--color-background); */
     margin: 0;

@@ -1,83 +1,218 @@
 import { Link } from "react-router-dom";
 import MobileMenu from "../MobileMenu/MobileMenu";
 import { useState } from "react";
+import { Menu, X } from "lucide-react";
+
+const leftNavItems = [
+  { label: "HOME", href: "#home" },
+  { label: "ABOUT ME", href: "#about" },
+  { label: "PROJECTS", href: "#projects" },
+];
+
+const rightNavItems = [
+  { label: "WHAT YOU GET", href: "#what-you-get" },
+  { label: "SERVICES", href: "#services" },
+  { label: "CONTACT", href: "#contact" },
+  { label: "FAQ", href: "#faq" },
+];
+
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+/* --------------------------------
+   Desktop animated nav link
+--------------------------------- */
+
+const DesktopNavLink = ({ item }: { item: NavItem }) => {
+  return (
+    <a
+      href={item.href}
+      className="
+        group relative block overflow-hidden
+        leading-none
+        text-[11px] font-bold
+        min-[900px]:text-xs
+        min-[1200px]:text-[13px]
+      "
+    >
+      {/* Original text */}
+      <span
+        className="
+          block
+          transition-transform
+          duration-300
+          ease-[cubic-bezier(.22,1,.36,1)]
+          group-hover:-translate-y-full
+        "
+      >
+        {item.label}
+      </span>
+
+      {/* Clone that slides into place */}
+      <span
+        aria-hidden="true"
+        className="
+          absolute inset-0
+          block translate-y-full
+          transition-transform
+          duration-300
+          ease-[cubic-bezier(.22,1,.36,1)]
+          group-hover:translate-y-0
+        "
+      >
+        {item.label}
+      </span>
+    </a>
+  );
+};
+
+/* --------------------------------
+   Desktop nav group
+--------------------------------- */
+
+const NavGroup = ({ items }: { items: NavItem[] }) => {
+  return (
+    <div
+      className="
+        flex items-center
+        gap-3
+        whitespace-nowrap
+      "
+    >
+      {items.map((item, index) => (
+        <div key={item.label} className="flex items-center gap-3">
+          <DesktopNavLink item={item} />
+
+          {/* Separator */}
+          {index !== items.length - 1 && (
+            <span aria-hidden="true" className="select-none text-current/70">
+              |
+            </span>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+/* --------------------------------
+   Navbar
+--------------------------------- */
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <>
-      <nav className="flex justify-between px-4 pt-4 fixed top-0 left-0 right-0 items-center z-50">
+      {/* =========================
+          MOBILE NAVBAR
+      ========================== */}
+
+      <nav
+        className="
+          fixed
+          left-0
+          right-0
+          top-0
+          z-50
+          flex
+          items-center
+          justify-between
+          px-4
+          pt-4
+          md:hidden
+        "
+      >
+        {/* Logo */}
         <Link
           to="/"
-          className="logo bg-primary flex-center w-30 h-10 rounded-md font-bold text-2xl  cursor-pointer"
+          className="
+            flex
+            h-10
+            w-30
+            items-center
+            justify-center
+            rounded-md
+            bg-primary
+            text-2xl
+            font-bold
+          "
         >
           ESROM®
         </Link>
-        <button
-          onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-          //this is used for screen readers
-          aria-label="Toggle menu"
-          aria-expanded={isMobileMenuOpen}
-          type="button"
-          className="menu cursor-pointer bg-secondary rounded-md w-10 h-10 flex-center"
-        >
-          <svg
-            width="20"
-            height="23"
-            viewBox="0 0 20 23"
-            fill="  none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {isMobileMenuOpen ? (
-              <g clipPath="url(#clip0_0_1)">
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M17 0H14C12.343 0 11 1.29504 11 2.89286V5.78571C11 7.38354 12.343 8.67857 14 8.67857H17C18.657 8.67857 20 7.38354 20 5.78571V2.89286C20 1.29504 18.657 0 17 0ZM9 2.89286V5.78571C9 7.38354 7.657 8.67857 6 8.67857H3C1.343 8.67857 0 7.38354 0 5.78571V2.89286C0 1.29504 1.343 0 3 0H6C7.657 0 9 1.29504 9 2.89286Z"
-                  fill="black"
-                />
-              </g>
-            ) : (
-              <>
-                <g clipPath="url(#clip0_0_1)">
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M17 0H14C12.343 0 11 1.29504 11 2.89286V5.78571C11 7.38354 12.343 8.67857 14 8.67857H17C18.657 8.67857 20 7.38354 20 5.78571V2.89286C20 1.29504 18.657 0 17 0ZM9 2.89286V5.78571C9 7.38354 7.657 8.67857 6 8.67857H3C1.343 8.67857 0 7.38354 0 5.78571V2.89286C0 1.29504 1.343 0 3 0H6C7.657 0 9 1.29504 9 2.89286Z"
-                    fill="black"
-                  />
-                </g>
-                <g clipPath="url(#clip1_0_1)">
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M17 14H14C12.343 14 11 15.295 11 16.8929V19.7857C11 21.3835 12.343 22.6786 14 22.6786H17C18.657 22.6786 20 21.3835 20 19.7857V16.8929C20 15.295 18.657 14 17 14ZM9 16.8929V19.7857C9 21.3835 7.657 22.6786 6 22.6786H3C1.343 22.6786 0 21.3835 0 19.7857V16.8929C0 15.295 1.343 14 3 14H6C7.657 14 9 15.295 9 16.8929Z"
-                    fill="black"
-                  />
-                </g>
-              </>
-            )}
 
-            <defs>
-              <clipPath id="clip0_0_1">
-                <rect width="20" height="9" fill="white" />
-              </clipPath>
-              <clipPath id="clip1_0_1">
-                <rect
-                  width="20"
-                  height="9"
-                  fill="white"
-                  transform="translate(0 14)"
-                />
-              </clipPath>
-            </defs>
-          </svg>
+        {/* Menu button */}
+        <button
+          type="button"
+          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isMobileMenuOpen}
+          onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+          className="
+            flex
+            h-10
+            w-10
+            items-center
+            justify-center
+            rounded-md
+            bg-secondary
+          "
+        >
+          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </nav>
-      <MobileMenu
-        isMobileMenuOpen={isMobileMenuOpen}
-        onClose={() => setIsMobileMenuOpen(false)}
-      />
+
+      {/* =========================
+          DESKTOP NAVBAR
+      ========================== */}
+
+      <nav
+        className="
+          pointer-events-none
+          fixed
+          left-1/2
+          z-50
+          hidden
+          -translate-x-1/2
+          items-center
+          justify-between
+          md:flex
+
+          top-[35%]
+          w-[90%]
+
+          min-[900px]:top-[40%]
+          min-[900px]:w-[95%]
+
+          min-[1052px]:top-[45%]
+          min-[1052px]:w-[95%]
+
+          min-[1200px]:top-[50%]
+          min-[1200px]:w-[94%]
+        "
+      >
+        {/* LEFT NAV */}
+        <div className="pointer-events-auto">
+          <NavGroup items={leftNavItems} />
+        </div>
+
+        {/* RIGHT NAV */}
+        <div className="pointer-events-auto">
+          <NavGroup items={rightNavItems} />
+        </div>
+      </nav>
+
+      {/* =========================
+          MOBILE MENU
+      ========================== */}
+
+      <div className="md:hidden">
+        <MobileMenu
+          isMobileMenuOpen={isMobileMenuOpen}
+          onClose={() => setIsMobileMenuOpen(false)}
+        />
+      </div>
     </>
   );
 };

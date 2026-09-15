@@ -104,7 +104,7 @@ const About = () => {
       className="relative w-full bg-background px-4 py-20  "
     >
       {/* ABOUT ME */}
-      <div className="mb-16 2 -mt-6">
+      <div className="mb-16 2 -mt-6 ">
         <h2 className="text-center text-4xl font-black leading-none">
           About Me (&)
           <br />
@@ -131,7 +131,7 @@ const About = () => {
 
       {/* WHAT I BUILD */}
       <div >
-        <h3 className="mb-10 text-3xl font-black text-center">What I Build?</h3>
+        <h3 id="services" className="mb-10 text-3xl font-black text-center">What I Build?</h3>
 
         {/* TIMELINE */}
         <div ref={timelineRef} className=" relative pl-8">
