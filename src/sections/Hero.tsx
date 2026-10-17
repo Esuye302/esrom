@@ -1,3 +1,8 @@
+
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
+
 import heroImg from "../assets/images/esromHero.avif";
 import logo from "../assets/logo/eLogo.svg";
 
@@ -10,6 +15,8 @@ import {
 } from "react-icons/fa";
 
 import type { IconType } from "react-icons";
+
+gsap.registerPlugin(useGSAP);
 
 interface Strength {
   label: string;
@@ -40,8 +47,324 @@ const strengths: Strength[] = [
 ];
 
 const Hero = () => {
+  const heroRef = useRef<HTMLElement | null>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+
+      /* =========================================
+         MOBILE
+      ========================================= */
+
+      mm.add("(max-width: 767px)", () => {
+        const tl = gsap.timeline({
+          defaults: {
+            ease: "power4.out",
+          },
+        });
+
+        tl.from(".hero-mobile-title", {
+          opacity: 0,
+          y: 60,
+          scale: 0.85,
+          duration: 0.9,
+        })
+
+          .from(
+            ".hero-mobile-image",
+            {
+              opacity: 0,
+              y: 80,
+              scale: 1.08,
+              filter: "blur(18px)",
+              duration: 1.2,
+            },
+            "-=0.55",
+          )
+
+          .from(
+            ".hero-mobile-strengths",
+            {
+              opacity: 0,
+              x: -50,
+              duration: 0.65,
+            },
+            "-=0.55",
+          )
+
+          .from(
+            ".hero-mobile-experience",
+            {
+              opacity: 0,
+              x: 50,
+              duration: 0.65,
+            },
+            "-=0.5",
+          )
+
+          .from(
+            ".hero-mobile-projects",
+            {
+              opacity: 0,
+              y: 40,
+              duration: 0.65,
+            },
+            "-=0.45",
+          );
+      });
+
+      /* =========================================
+         TABLET
+         768 - 899
+      ========================================= */
+
+      mm.add("(min-width: 768px) and (max-width: 899px)", () => {
+        const tl = gsap.timeline({
+          defaults: {
+            ease: "power4.out",
+          },
+        });
+
+        tl.from(".hero-desktop-title", {
+          opacity: 0,
+          y: 100,
+          scale: 0.78,
+          duration: 1,
+        })
+
+          .from(
+            ".hero-desktop-image",
+            {
+              opacity: 0,
+              y: 100,
+              scale: 1.08,
+              filter: "blur(20px)",
+              duration: 1.15,
+            },
+            "-=0.65",
+          )
+
+          .from(
+            ".hero-project-card",
+            {
+              opacity: 0,
+              x: -90,
+              duration: 0.7,
+            },
+            "-=0.55",
+          )
+
+          .from(
+            ".hero-strength-card",
+            {
+              opacity: 0,
+              x: 90,
+              duration: 0.7,
+            },
+            "-=0.55",
+          )
+
+          .from(
+            ".hero-experience-card",
+            {
+              opacity: 0,
+              x: 80,
+              duration: 0.65,
+            },
+            "-=0.5",
+          )
+
+          .from(
+            ".hero-outline-title",
+            {
+              opacity: 0,
+              duration: 0.45,
+            },
+            "-=0.2",
+          );
+      });
+
+      /* =========================================
+         MEDIUM DESKTOP
+         900 - 1199
+      ========================================= */
+
+      mm.add("(min-width: 900px) and (max-width: 1199px)", () => {
+        const tl = gsap.timeline({
+          defaults: {
+            ease: "power4.out",
+          },
+        });
+
+        tl.from(".hero-desktop-title", {
+          opacity: 0,
+          y: 110,
+          scale: 0.75,
+          duration: 1.05,
+        })
+
+          .from(
+            ".hero-desktop-image",
+            {
+              opacity: 0,
+              y: 110,
+              scale: 1.08,
+              filter: "blur(20px)",
+              duration: 1.15,
+            },
+            "-=0.65",
+          )
+
+          .from(
+            ".hero-project-card",
+            {
+              opacity: 0,
+              x: -100,
+              duration: 0.7,
+            },
+            "-=0.55",
+          )
+
+          .from(
+            ".hero-strength-card",
+            {
+              opacity: 0,
+              x: 100,
+              duration: 0.7,
+            },
+            "-=0.55",
+          )
+
+          .from(
+            ".hero-experience-card",
+            {
+              opacity: 0,
+              x: 90,
+              duration: 0.65,
+            },
+            "-=0.5",
+          )
+
+          .from(
+            ".hero-outline-title",
+            {
+              opacity: 0,
+              duration: 0.5,
+            },
+            "-=0.25",
+          );
+      });
+
+      /* =========================================
+         LARGE DESKTOP
+         1200+
+      ========================================= */
+
+      mm.add("(min-width: 1200px)", () => {
+        const tl = gsap.timeline({
+          defaults: {
+            ease: "power4.out",
+          },
+        });
+
+        /*
+         * 1. GIANT ESROM
+         */
+
+        tl.from(".hero-desktop-title", {
+          opacity: 0,
+          y: 130,
+          scale: 0.72,
+          duration: 1.2,
+        })
+
+          /*
+           * 2. PERSON
+           *
+           * Starts blurred inside the background.
+           */
+
+          .from(
+            ".hero-desktop-image",
+            {
+              opacity: 0,
+              y: 140,
+              scale: 1.1,
+              filter: "blur(24px)",
+              duration: 1.25,
+            },
+            "-=0.75",
+          )
+
+          /*
+           * 3. PROJECT CARD
+           */
+
+          .from(
+            ".hero-project-card",
+            {
+              opacity: 0,
+              x: -120,
+              duration: 0.75,
+            },
+            "-=0.6",
+          )
+
+          /*
+           * 4. STRENGTHS
+           */
+
+          .from(
+            ".hero-strength-card",
+            {
+              opacity: 0,
+              x: 120,
+              duration: 0.75,
+            },
+            "-=0.6",
+          )
+
+          /*
+           * 5. EXPERIENCE
+           */
+
+          .from(
+            ".hero-experience-card",
+            {
+              opacity: 0,
+              x: 110,
+              duration: 0.7,
+            },
+            "-=0.58",
+          )
+
+          /*
+           * 6. OUTLINE
+           */
+
+          .from(
+            ".hero-outline-title",
+            {
+              opacity: 0,
+              duration: 0.55,
+            },
+            "-=0.3",
+          );
+      });
+
+      return () => {
+        mm.revert();
+      };
+    },
+    {
+      scope: heroRef,
+    },
+  );
+
   return (
     <section
+      ref={heroRef}
       id="home"
       className="
         relative
@@ -51,7 +374,7 @@ const Hero = () => {
         overflow-hidden
         bg-background
 
-        md:h-250
+        md:h-[1000px]
 
         min-[900px]:h-[633px]
 
@@ -63,10 +386,11 @@ const Hero = () => {
       ====================================================== */}
 
       <div className="md:hidden">
-        {/* BACKGROUND ESROM */}
+        {/* GIANT ESROM */}
 
         <h1
           className="
+            hero-mobile-title
             pointer-events-none
             absolute
             left-0
@@ -84,13 +408,14 @@ const Hero = () => {
           ESROM
         </h1>
 
-        {/* IMAGE */}
+        {/* PERSON */}
 
         <img
           src={heroImg}
           alt="Esrom"
           loading="eager"
           className="
+            hero-mobile-image
             absolute
             -bottom-13
             left-1/2
@@ -103,7 +428,15 @@ const Hero = () => {
 
         {/* STRENGTHS */}
 
-        <div className="absolute left-[5vw] top-[77vw] z-40">
+        <div
+          className="
+            hero-mobile-strengths
+            absolute
+            left-[5vw]
+            top-[77vw]
+            z-40
+          "
+        >
           <div
             className="
               rounded-lg
@@ -143,7 +476,15 @@ const Hero = () => {
 
         {/* EXPERIENCE */}
 
-        <div className="absolute right-[5vw] top-[99vw] z-40">
+        <div
+          className="
+            hero-mobile-experience
+            absolute
+            right-[5vw]
+            top-[99vw]
+            z-40
+          "
+        >
           <div
             className="
               rounded-lg
@@ -155,11 +496,25 @@ const Hero = () => {
               backdrop-blur-xs
             "
           >
-            <p className="text-[12vw] font-black leading-none text-primary">
+            <p
+              className="
+                text-[12vw]
+                font-black
+                leading-none
+                text-primary
+              "
+            >
               2+
             </p>
 
-            <p className="mt-[1vw] text-[3vw] font-medium leading-tight">
+            <p
+              className="
+                mt-[1vw]
+                text-[3vw]
+                font-medium
+                leading-tight
+              "
+            >
               Years of
               <br />
               Experience
@@ -167,7 +522,7 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* OUTLINE ESROM */}
+        {/* OUTLINE */}
 
         <h1
           aria-hidden="true"
@@ -192,7 +547,15 @@ const Hero = () => {
 
         {/* PROJECTS */}
 
-        <div className="absolute left-[5vw] top-[170vw] z-40">
+        <div
+          className="
+            hero-mobile-projects
+            absolute
+            left-[5vw]
+            top-[170vw]
+            z-40
+          "
+        >
           <div
             className="
               flex-center
@@ -209,7 +572,15 @@ const Hero = () => {
               <img src={logo} alt="Logo" className="h-[10vw] w-[20vw]" />
             </div>
 
-            <p className="mt-[1vw] pr-3 text-[3vw] font-medium leading-tight">
+            <p
+              className="
+                mt-[1vw]
+                pr-3
+                text-[3vw]
+                font-medium
+                leading-tight
+              "
+            >
               <span className="text-primary">20+</span> Projects
             </p>
           </div>
@@ -221,12 +592,11 @@ const Hero = () => {
       ====================================================== */}
 
       <div className="hidden md:block">
-        {/* =================================================
-            FILLED ESROM
-        ================================================== */}
+        {/* FILLED ESROM */}
 
         <h1
           className="
+            hero-desktop-title
             pointer-events-none
             absolute
             left-1/2
@@ -239,62 +609,50 @@ const Hero = () => {
             leading-none
             text-primary
 
-            /* TABLET */
-           min-[768px]:top-0
-           min-[768px]:text-[227px]
+            top-0
+            text-[227px]
 
-            /* MEDIUM */
-            min-[1052px]:-top-1.25
-            min-[1052px]:text-[300px]
-            min-[900px]:-top-1.25
-            min-[900px]:text-[259px]
+            min-[900px]:-top-1
+            min-[900px]:text-[300px]
 
-            /* LARGE DESKTOP */
-            min-[1200px]:-top-13
-            min-[1200px]:text-[380px]
+            min-[1200px]:-top-[50px]
+            min-[1200px]:text-[370px]
           "
         >
           ESROM
         </h1>
 
-        {/* =================================================
-            PERSON
-        ================================================== */}
+        {/* PERSON */}
 
         <img
           src={heroImg}
           alt="Esrom"
           loading="eager"
           className="
+            hero-desktop-image
             pointer-events-none
             absolute
-            left-1/2
+            left-1/4
             z-20
-            -translate-x-1/2
+            
+            flex-center
             object-contain
 
-            /* TABLET */
             top-0
-            h-[700px]
-            w-auto
+            h-175
 
-            /* MEDIUM */
-            min-[900px]:top-0
             min-[900px]:h-[680px]
 
-            /* LARGE DESKTOP */
-            min-[1200px]:top-[0px]
-            min-[1200px]:h-[760px]
+            min-[1200px]:h-[780px]
           "
         />
 
-        {/* =================================================
-            OUTLINE ESROM
-        ================================================== */}
+        {/* OUTLINE ESROM */}
 
         <h1
           aria-hidden="true"
           className="
+            hero-outline-title
             pointer-events-none
             absolute
             left-1/2
@@ -306,44 +664,35 @@ const Hero = () => {
             font-black
             leading-none
             text-transparent
-            [-webkit-text-stroke:0.2px_theme(colors.primary)]
+            [-webkit-text-stroke:0.3px_theme(colors.primary)]
 
-            /* TABLET */
-            min-[768px]:top-0
-            min-[768px]:text-[227px]
+            top-0
+            text-[227px]
 
-            /* MEDIUM */
-            min-[1052px]:-top-1.25
-            min-[1052px]:text-[300px]
-            min-[900px]:-top-1.25
-            min-[900px]:text-[259px]
+            min-[900px]:-top-1
+            min-[900px]:text-[300px]
 
-            /* LARGE DESKTOP */
-            min-[1200px]:-top-13
-            min-[1200px]:text-[380px]
+            min-[1200px]:-top-[50px]
+            min-[1200px]:text-[370px]
           "
         >
           ESROM
         </h1>
 
-        {/* =================================================
-            PROJECTS CARD
-        ================================================== */}
+        {/* PROJECTS */}
 
         <div
           className="
+            hero-project-card
             absolute
             z-40
 
-            /* TABLET */
             left-[10%]
             top-[40%]
 
-            /* MEDIUM */
             min-[900px]:left-[18%]
             min-[900px]:top-[40%]
 
-            /* LARGE */
             min-[1200px]:left-[20%]
             min-[1200px]:top-[40%]
           "
@@ -364,7 +713,6 @@ const Hero = () => {
               backdrop-blur-xs
 
               min-[900px]:h-[94px]
-              min-[900px]:w-[250px]
 
               min-[1200px]:h-[98px]
               min-[1200px]:w-[255px]
@@ -389,25 +737,19 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* =================================================
-            STRENGTHS CARD
-        ================================================== */}
+        {/* STRENGTHS */}
 
         <div
           className="
+            hero-strength-card
             absolute
             z-40
 
-            /* TABLET */
             right-[10%]
             top-[28%]
 
-            /* MEDIUM */
-            min-[900px]:right-[25%]
-            min-[900px]:top-[28%]
+            min-[900px]:right-[35%]
 
-            /* LARGE */
-            min-[1200px]:right-[25%]
             min-[1200px]:top-[30%]
           "
         >
@@ -451,26 +793,20 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* =================================================
-            EXPERIENCE CARD
-        ================================================== */}
+        {/* EXPERIENCE */}
 
         <div
           className="
+            hero-experience-card
             absolute
             z-40
 
-            /* TABLET */
             right-[18%]
             top-[50%]
 
-            /* MEDIUM */
             min-[900px]:right-[18%]
-            min-[900px]:top-[50%]
 
-            /* LARGE */
             min-[1200px]:right-[30%]
-            min-[1200px]:top-[50%]
           "
         >
           <div
@@ -497,7 +833,14 @@ const Hero = () => {
               2+
             </p>
 
-            <p className="mt-2 text-sm font-medium leading-tight">
+            <p
+              className="
+                mt-2
+                text-sm
+                font-medium
+                leading-tight
+              "
+            >
               Years of
               <br />
               Experience
@@ -505,6 +848,23 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
+      {/* IMAGE FADE INTO BACKGROUND */}
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          inset-x-0
+          bottom-0
+          z-30
+          h-28
+          bg-gradient-to-t
+          from-background
+          via-background/70
+          to-transparent
+        "
+      />
     </section>
   );
 };
